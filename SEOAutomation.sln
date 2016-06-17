@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.Base", "SEOAutomation.Base\SEOAutomation.Base.csproj", "{E6257F20-58FD-4C1A-A774-750C8D407295}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.GoogleAdword", "SEOAutomation.GoogleAdword\SEOAutomation.GoogleAdword.csproj", "{842D863F-587C-4BE3-8B87-4670777DD7EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.Ultilities", "SEOAutomation.Ultilities\SEOAutomation.Ultilities.csproj", "{0DFB0FD5-F22F-4C6F-84F1-D6D434030FF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.Winform", "SEOAutomation.Winform\SEOAutomation.Winform.csproj", "{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6257F20-58FD-4C1A-A774-750C8D407295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6257F20-58FD-4C1A-A774-750C8D407295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6257F20-58FD-4C1A-A774-750C8D407295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6257F20-58FD-4C1A-A774-750C8D407295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842D863F-587C-4BE3-8B87-4670777DD7EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842D863F-587C-4BE3-8B87-4670777DD7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842D863F-587C-4BE3-8B87-4670777DD7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842D863F-587C-4BE3-8B87-4670777DD7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DFB0FD5-F22F-4C6F-84F1-D6D434030FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DFB0FD5-F22F-4C6F-84F1-D6D434030FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DFB0FD5-F22F-4C6F-84F1-D6D434030FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DFB0FD5-F22F-4C6F-84F1-D6D434030FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
