@@ -40,6 +40,9 @@
             this.txtPageLimit = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtTextLink = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -53,10 +56,6 @@
             this.chkBackLink = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.dtGridAdwordConfig = new System.Windows.Forms.DataGridView();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.txtTextLink = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.url = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdWordID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeyWord = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +66,7 @@
             this.TextBackLink = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsAdsen = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PageLimit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnClear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridAdwordConfig)).BeginInit();
@@ -195,6 +195,32 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information Config";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(645, 51);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(11, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "*";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(588, 51);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 13);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Text Link";
+            // 
+            // txtTextLink
+            // 
+            this.txtTextLink.Location = new System.Drawing.Point(662, 47);
+            this.txtTextLink.Name = "txtTextLink";
+            this.txtTextLink.Size = new System.Drawing.Size(383, 20);
+            this.txtTextLink.TabIndex = 22;
             // 
             // label11
             // 
@@ -336,42 +362,6 @@
             this.dtGridAdwordConfig.TabIndex = 20;
             this.dtGridAdwordConfig.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridAdwordConfig_CellDoubleClick);
             // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(803, 382);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(84, 27);
-            this.btnClear.TabIndex = 21;
-            this.btnClear.Text = "Clear text";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // txtTextLink
-            // 
-            this.txtTextLink.Location = new System.Drawing.Point(662, 47);
-            this.txtTextLink.Name = "txtTextLink";
-            this.txtTextLink.Size = new System.Drawing.Size(383, 20);
-            this.txtTextLink.TabIndex = 22;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(588, 51);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(51, 13);
-            this.label12.TabIndex = 23;
-            this.label12.Text = "Text Link";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(645, 51);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(11, 13);
-            this.label13.TabIndex = 24;
-            this.label13.Text = "*";
-            // 
             // url
             // 
             this.url.DataPropertyName = "URL";
@@ -442,6 +432,16 @@
             this.PageLimit.DataPropertyName = "PageLimit";
             this.PageLimit.HeaderText = "Page Limit";
             this.PageLimit.Name = "PageLimit";
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(803, 382);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(84, 27);
+            this.btnClear.TabIndex = 21;
+            this.btnClear.Text = "Clear text";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // ConfigAdwordEdit
             // 

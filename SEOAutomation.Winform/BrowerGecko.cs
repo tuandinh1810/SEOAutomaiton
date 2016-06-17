@@ -38,7 +38,8 @@ namespace SEOAutomation.Winform
         {
             InitializeComponent();
             _googleAdwordService = new GoogleAdwordService();
-            Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+            //Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+            Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
             historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
             historyMan.RemoveAllPages();
@@ -190,7 +191,7 @@ namespace SEOAutomation.Winform
 
             if (!isFindingURL)
             {
-                if (geckoBrower.Url.Host.Equals("www.google.com"))
+                if (geckoBrower.Url.Host.Equals("www.google.com") || geckoBrower.Url.Host.Equals("www.google.co.uk") || geckoBrower.Url.Host.Equals("www.google.co.jp"))
                 {
 
 
@@ -198,7 +199,7 @@ namespace SEOAutomation.Winform
                     foreach (var item in cv)
                     {
                         //Doanh nghiệp xanh - Diễn đàn cộng đồng doanh nghiệp Việt Nam
-                        if (StripHTML(item.InnerHtml).Equals("Nhà đất hải phòng") || StripHTML(item.InnerHtml).Equals("Doanh nghiệp xanh - Diễn đàn cộng đồng doanh nghiệp Việt Nam"))
+                        if (StripHTML(item.InnerHtml).Equals(objAdwordConfig.TextLink))
                         {
                             isFindingURL = true;
                             System.Threading.Thread.Sleep(20000);
@@ -256,7 +257,7 @@ namespace SEOAutomation.Winform
         }
         private void WriteLog(string strLog)
         {
-            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"D:\Project\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
         }
 
 

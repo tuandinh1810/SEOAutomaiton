@@ -24,10 +24,6 @@ namespace SEOAutomation.Winform
             dtGridAdwordConfig.AutoGenerateColumns = false;
             _googleAdwordService = new GoogleAdwordService();
             //string a=GetIPAddress();
-
-          
-            
-
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -172,6 +168,8 @@ namespace SEOAutomation.Winform
             txtPageLimit.Text = "";
 
             txtTextBackLink.Text = "";
+
+            Id = 0;
 
 
 
