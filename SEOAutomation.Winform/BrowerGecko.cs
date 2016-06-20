@@ -31,6 +31,8 @@ namespace SEOAutomation.Winform
         private int numberURL = 0;
         int countClickOnSite = 0;
         private string googleURL = "https://www.google.com/search?q=";
+        private string yahooURL = "https://vn.search.yahoo.com/search?p=";
+        private string bingURL = "http://www.bing.com/search?q=";
         private bool isFindingURL = false;
         private int page = 0;
         string IPPublic = "";
@@ -38,8 +40,8 @@ namespace SEOAutomation.Winform
         {
             InitializeComponent();
             _googleAdwordService = new GoogleAdwordService();
-            //Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
-            Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
+            Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+           // Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
             historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
             historyMan.RemoveAllPages();
@@ -50,6 +52,7 @@ namespace SEOAutomation.Winform
             CookieMan.RemoveAll();
             IPPublic = getPublicIP();
             WriteLog(IPPublic.ToString());
+            WriteLogIP("Activated");
         }
         public static string StripHTML(string input)
         {
@@ -83,13 +86,17 @@ namespace SEOAutomation.Winform
                     int randomClick = rd.Next(0, cv.Length - 1);
 
                     if (!StripHTML(cv[randomClick].InnerHtml).Equals("Xem hướng nhà theo tuổi") &&
-                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)))
+                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)) && cv[randomClick].GetAttribute("href").IndexOf("google.com")==-1)
                     {
                         string strHref = cv[randomClick].GetAttribute("href");
-                        WriteLog(strHref);
-                        cv[randomClick].Click();
-                        // MessageBox.Show(countClickOnSite.ToString());
-                        countClickOnSite = countClickOnSite + 1;
+                        if (strHref.IndexOf("javascript") == -1 && strHref.IndexOf("facebook.com")==-1 && strHref.IndexOf("twitter")==-1 && strHref.IndexOf("maylammatvn.com")==-1
+                            && strHref.IndexOf("plus.google.com")==-1  && strHref.IndexOf("quatlammatvn") ==-1)
+                        {
+                            WriteLog(strHref);
+                            cv[randomClick].Click();
+                            // MessageBox.Show(countClickOnSite.ToString());
+                            countClickOnSite = countClickOnSite + 1;
+                        }
 
 
                     }
@@ -118,6 +125,12 @@ namespace SEOAutomation.Winform
             Random random = new Random();
             lstAdwordConfigs = _googleAdwordService.GetAdwordConfigs().OrderBy(arg => random.Next(int.MaxValue)).ToList();
             ViewLink();
+            //GeckoPreferences.Default["network.proxy.type"] = 1;
+            //GeckoPreferences.Default["network.proxy.http"] = "115.146.123.219";
+            //GeckoPreferences.Default["network.proxy.http_port"] = 8080;
+            //GeckoPreferences.Default["network.proxy.ssl"] = "115.146.123.219";
+            //GeckoPreferences.Default["network.proxy.ssl_port"] =8080;
+            //geckoBrower.Navigate("https://www.google.com.vn/?gws_rd=ssl#q=nha+dat");
         }
 
         private void ViewLink()
@@ -156,12 +169,13 @@ namespace SEOAutomation.Winform
                 clickLinkTimer.Stop();
                 clickLinkTimer.Enabled = false;
                 clickLinkTimer.Dispose();
-                MessageBox.Show("Done Number URL : " + numberURL);
+                //MessageBox.Show("Done Number URL : " + numberURL);
+                WriteLogIP("NewIP");
 
 
                 //Loop khi reset IP
 
-                System.Threading.Thread.Sleep(60000);
+                System.Threading.Thread.Sleep(3*60000);
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
                 if (!IPPublic.Equals(IPPublic.ToString()))
@@ -244,22 +258,49 @@ namespace SEOAutomation.Winform
         }
         private string getPublicIP()
         {
-            string url = "http://checkip.dyndns.org";
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-            System.Net.WebResponse resp = req.GetResponse();
-            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-            string response = sr.ReadToEnd().Trim();
-            string[] a = response.Split(':');
-            string a2 = a[1].Substring(1);
-            string[] a3 = a2.Split('<');
-            string a4 = a3[0];
-            return a4;
+            //string url = "http://checkip.dyndns.org";
+            //System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+            //System.Net.WebResponse resp = req.GetResponse();
+            //System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+            //string response = sr.ReadToEnd().Trim();
+            //string[] a = response.Split(':');
+            //string a2 = a[1].Substring(1);
+            //string[] a3 = a2.Split('<');
+            //string a4 = a3[0];
+            //return a4;
+            string externalip="";
+            try
+            {
+                externalip = new System.Net.WebClient().DownloadString("http://ipinfo.io/ip");
+                
+            }
+            
+            catch
+            {
+                WriteLog("Donn't get IP");
+            }
+            return externalip;
         }
         private void WriteLog(string strLog)
         {
-            File.AppendAllText(@"D:\Project\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+        }
+        private void WriteLogIP(string strLog)
+        {
+            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GeckoElementCollection cv = geckoBrower.Document.GetElementsByTagName("a");
+            foreach (var item in cv)
+            {
+                WriteLog(StripHTML(item.InnerHtml));
+                string strHref = item.GetAttribute("href");
+                WriteLog(strHref);
+            }
+            MessageBox.Show("Done");
         }
 
-
+      
     }
 }
