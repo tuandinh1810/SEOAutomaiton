@@ -33,7 +33,7 @@ namespace SEOAutomation.Winform
             {
                 if (ValidInput())
                 {
-                    
+
                     AdwordConfig obAdwordConfig = new AdwordConfig();
                     if (Id > 0)
                         obAdwordConfig.ID = Id;
@@ -57,23 +57,15 @@ namespace SEOAutomation.Winform
                         // New code:
                         var response = client.PostAsJsonAsync("api/GoogleAdword/Add_addWord", obAdwordConfig).Result;
 
+                        if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            MessageBox.Show("Cập nhật thành công.");
+                        }
 
-                        //var response = client.GetAsync("api/GoogleAdword/get").Result;
-                        //client.PostAsJsonAsync
-                        response.EnsureSuccessStatusCode();
-                        //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
-                        // var books = response.Content.ReadAsAsync<IEnumerable<AdwordConfig>>().Result;
-                        //if (response.IsSuccessStatusCode)
-                        //{
-                        //    //AdwordConfig product = await response.Content.ReadAsAsync>AdwordConfig>();
-                        //   List<AdwordConfig> product = await response.Content.ReadAsAsync<List<AdwordConfig>>();
-                        //    //Console.WriteLine("{0}\t${1}\t{2}", product.Name, product.Price, product.Category);
-                        //}
+
+                        //_googleAdwordService.Add(obAdwordConfig);
+                        bindData();
                     }
-
-
-                    //_googleAdwordService.Add(obAdwordConfig);
-                    bindData();
                 }
             }
             catch (Exception ex)
@@ -84,7 +76,29 @@ namespace SEOAutomation.Winform
 
 
         }
+        private bool IsExisURL(string URL,int Id)
+        {
+            bool isExis = false;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:58199/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                // New code:
+
+                var response = client.GetAsync("api/GoogleAdword/IsExisURL?URL="+URL+"&Id="+Id+"").Result;
+                //client.PostAsJsonAsync
+                if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
+                    isExis = response.Content.ReadAsAsync<bool>().Result;
+                }
+                
+
+            }
+            return isExis;
+        }
         private bool ValidInput()
         {
             if (String.IsNullOrEmpty(txtURL.Text))
@@ -117,7 +131,7 @@ namespace SEOAutomation.Winform
                 MessageBox.Show("Bạn chưa nhập số lượng link cần click.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return false;
             }
-            if (_googleAdwordService.iskExisURL(txtURL.Text,Id))
+            if (IsExisURL(txtURL.Text,Id))
             {
                 MessageBox.Show("URL đã tồn tại.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return false;
@@ -148,10 +162,12 @@ namespace SEOAutomation.Winform
 
                 var response = client.GetAsync("api/GoogleAdword/get").Result;
                 //client.PostAsJsonAsync
-                response.EnsureSuccessStatusCode();
+                if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
                 //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
-                List<AdwordConfig> lstAdword = response.Content.ReadAsAsync<List<AdwordConfig>>().Result;
-                dtGridAdwordConfig.DataSource = lstAdword;// _googleAdwordService.GetAdwordConfigs();
+                {
+                    List<AdwordConfig> lstAdword = response.Content.ReadAsAsync<List<AdwordConfig>>().Result;
+                    dtGridAdwordConfig.DataSource = lstAdword;// _googleAdwordService.GetAdwordConfigs();
+                }
 
             }
 

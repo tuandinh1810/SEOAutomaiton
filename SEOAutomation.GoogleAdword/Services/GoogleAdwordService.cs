@@ -65,7 +65,7 @@ namespace SEOAutomation.GoogleAdword.Services
             SeoAutomationEntities.SaveChanges();
             return strReturn;
         }
-        public bool iskExisURL(string URL,int Id)
+        public bool isExisURL(string URL,int Id)
         {
 
            AdwordConfig adword = SeoAutomationEntities.AdwordConfigs.Where(o => o.URL.Equals(URL)).FirstOrDefault();
