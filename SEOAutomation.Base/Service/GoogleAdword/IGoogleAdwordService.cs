@@ -15,6 +15,8 @@ namespace SEOAutomation.Base.Service.GoogleAdword
         void Add(AdwordConfig objAdwordConfig);
 
         bool iskExisURL(string URL,int Id);
-        
+        string Add_Adword(AdwordConfig objAdwordConfig);
+
+
     }
 }

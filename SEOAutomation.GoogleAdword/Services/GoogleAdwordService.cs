@@ -39,7 +39,32 @@ namespace SEOAutomation.GoogleAdword.Services
         {
             return SeoAutomationEntities.AdwordConfigs.ToList();
         }
+        public string Add_Adword(AdwordConfig objAdwordConfig)
+        {
+            string strReturn = "";
+            if (objAdwordConfig.ID > 0)
+            {
+                var adwordConfig = SeoAutomationEntities.AdwordConfigs.FirstOrDefault(o => o.ID == objAdwordConfig.ID);
+                //adwordConfig.ID = objAdwordConfig.ID;
+                adwordConfig.URL = objAdwordConfig.URL;
+                adwordConfig.KeyWord = objAdwordConfig.KeyWord;
+                adwordConfig.IntervalClick = objAdwordConfig.IntervalClick;
+                adwordConfig.IsAdsen = objAdwordConfig.IsAdsen;
+                adwordConfig.IsBackLink = objAdwordConfig.IsBackLink;
+                adwordConfig.LinkQuantityClick = objAdwordConfig.LinkQuantityClick;
+                adwordConfig.PageLimit = objAdwordConfig.PageLimit;
+                adwordConfig.TextLink = objAdwordConfig.TextLink;
+                strReturn = "Updated";
+            }
+            else
+            {
+                SeoAutomationEntities.AdwordConfigs.Add(objAdwordConfig);
+                strReturn = "Added";
+            }
 
+            SeoAutomationEntities.SaveChanges();
+            return strReturn;
+        }
         public bool iskExisURL(string URL,int Id)
         {
 

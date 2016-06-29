@@ -40,8 +40,8 @@ namespace SEOAutomation.Winform
         {
             InitializeComponent();
             _googleAdwordService = new GoogleAdwordService();
-            Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
-           // Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
+           // Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+            Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
             historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
             historyMan.RemoveAllPages();
@@ -86,7 +86,7 @@ namespace SEOAutomation.Winform
                     int randomClick = rd.Next(0, cv.Length - 1);
 
                     if (!StripHTML(cv[randomClick].InnerHtml).Equals("Xem hướng nhà theo tuổi") &&
-                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)) && cv[randomClick].GetAttribute("href").IndexOf("google.com")==-1)
+                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)) && cv[randomClick].GetAttribute("href") !=null && cv[randomClick].GetAttribute("href").IndexOf("google.com")==-1)
                     {
                         string strHref = cv[randomClick].GetAttribute("href");
                         if (strHref.IndexOf("javascript") == -1 && strHref.IndexOf("facebook.com")==-1 && strHref.IndexOf("twitter")==-1 && strHref.IndexOf("maylammatvn.com")==-1
@@ -283,11 +283,11 @@ namespace SEOAutomation.Winform
         }
         private void WriteLog(string strLog)
         {
-            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"D:\Project\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
         }
         private void WriteLogIP(string strLog)
         {
-            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"D:\Project\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
         }
         private void button1_Click(object sender, EventArgs e)
         {
