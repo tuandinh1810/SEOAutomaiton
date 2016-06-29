@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.Ultilities", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.Winform", "SEOAutomation.Winform\SEOAutomation.Winform.csproj", "{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOAutomation.WebAPI", "SEOAutomation.WebAPI\SEOAutomation.WebAPI.csproj", "{F0F1BDFA-517F-4A8F-9E02-5E234D5F5CDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAEFC7DE-4843-4C9D-8DC6-ABE4A54A3325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0F1BDFA-517F-4A8F-9E02-5E234D5F5CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0F1BDFA-517F-4A8F-9E02-5E234D5F5CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0F1BDFA-517F-4A8F-9E02-5E234D5F5CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0F1BDFA-517F-4A8F-9E02-5E234D5F5CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

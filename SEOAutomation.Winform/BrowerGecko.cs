@@ -40,8 +40,8 @@ namespace SEOAutomation.Winform
         {
             InitializeComponent();
             _googleAdwordService = new GoogleAdwordService();
-            Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
-           // Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
+           // Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+            Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
             historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
             historyMan.RemoveAllPages();
