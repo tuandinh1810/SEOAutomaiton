@@ -86,11 +86,11 @@ namespace SEOAutomation.Winform
                     int randomClick = rd.Next(0, cv.Length - 1);
 
                     if (!StripHTML(cv[randomClick].InnerHtml).Equals("Xem hướng nhà theo tuổi") &&
-                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)) && cv[randomClick].GetAttribute("href").IndexOf("google.com")==-1)
+                        !String.IsNullOrEmpty(StripHTML(cv[randomClick].InnerHtml)) && cv[randomClick].GetAttribute("href")!=null && cv[randomClick].GetAttribute("href").IndexOf("google.com")==-1)
                     {
                         string strHref = cv[randomClick].GetAttribute("href");
                         if (strHref.IndexOf("javascript") == -1 && strHref.IndexOf("facebook.com")==-1 && strHref.IndexOf("twitter")==-1 && strHref.IndexOf("maylammatvn.com")==-1
-                            && strHref.IndexOf("plus.google.com")==-1  && strHref.IndexOf("quatlammatvn") ==-1)
+                            && strHref.IndexOf("plus.google.com")==-1  && strHref.IndexOf("quatlammatvn") ==-1 && strHref.IndexOf("duongquoccuongbds.com")==-1)
                         {
                             WriteLog(strHref);
                             cv[randomClick].Click();
@@ -155,6 +155,8 @@ namespace SEOAutomation.Winform
                 if (arrKeyWord.Length > 0)
                 {
                     int i = 0;
+                    //rdKeyWord.Next(0,arrKeyWord.Count()-1]
+                    Random rdKeyWord = new Random();
                     string strQuery = HttpUtility.UrlEncode(arrKeyWord[i]);
                     // geckoBrower.Dispose();
                     geckoBrower.Navigate(googleURL + strQuery);
@@ -205,7 +207,8 @@ namespace SEOAutomation.Winform
 
             if (!isFindingURL)
             {
-                if (geckoBrower.Url.Host.Equals("www.google.com") || geckoBrower.Url.Host.Equals("www.google.co.uk") || geckoBrower.Url.Host.Equals("www.google.co.jp"))
+                if (geckoBrower.Url.Host.Equals("www.google.com") || geckoBrower.Url.Host.Equals("www.google.co.uk") || 
+                    geckoBrower.Url.Host.Equals("www.google.co.jp") || geckoBrower.Url.Host.Equals("www.google.nl") || geckoBrower.Url.Host.Equals("www.google.de"))
                 {
 
 
@@ -219,11 +222,13 @@ namespace SEOAutomation.Winform
                             System.Threading.Thread.Sleep(20000);
                             WriteLog(StripHTML(item.InnerHtml));
                             item.Click();
+
                             //Tim thay URL can view thi goi timer de click tren trang 
                             clickLinkTimer = new Timer();
                             clickLinkTimer.Interval = (1 * 20 * 1000);
                             clickLinkTimer.Tick += new EventHandler(clickLinkTimer_Tick);
                             clickLinkTimer.Start();
+                            break;
                         }
 
                     }
