@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using SEOAutomation.Base.Service.GoogleAdword;
 using SEOAutomation.Base.Models.Common;
 using SEOAutomation.GoogleAdword.Services;
-
+using System.Net.Http;
+using System.Net.Http.Headers;
 namespace SEOAutomation.Winform
 {
     public partial class ConfigAdwordEdit : Form
@@ -46,7 +47,32 @@ namespace SEOAutomation.Winform
                     obAdwordConfig.TextLink = txtTextLink.Text;
                     obAdwordConfig.IsAdsen = chkAdsen.Checked;
 
-                    _googleAdwordService.Add(obAdwordConfig);
+
+                    using (var client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri("http://localhost:58199/");
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        // New code:
+                        var response = client.PostAsJsonAsync("api/GoogleAdword/Add_addWord", obAdwordConfig).Result;
+
+
+                        //var response = client.GetAsync("api/GoogleAdword/get").Result;
+                        //client.PostAsJsonAsync
+                        response.EnsureSuccessStatusCode();
+                        //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
+                        // var books = response.Content.ReadAsAsync<IEnumerable<AdwordConfig>>().Result;
+                        //if (response.IsSuccessStatusCode)
+                        //{
+                        //    //AdwordConfig product = await response.Content.ReadAsAsync>AdwordConfig>();
+                        //   List<AdwordConfig> product = await response.Content.ReadAsAsync<List<AdwordConfig>>();
+                        //    //Console.WriteLine("{0}\t${1}\t{2}", product.Name, product.Price, product.Category);
+                        //}
+                    }
+
+
+                    //_googleAdwordService.Add(obAdwordConfig);
                     bindData();
                 }
             }
@@ -111,8 +137,24 @@ namespace SEOAutomation.Winform
 
         private void bindData()
         {
-            dtGridAdwordConfig.DataSource = _googleAdwordService.GetAdwordConfigs();
-            
+            // dtGridAdwordConfig.DataSource = _googleAdwordService.GetAdwordConfigs();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:58199/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // New code:
+
+                var response = client.GetAsync("api/GoogleAdword/get").Result;
+                //client.PostAsJsonAsync
+                response.EnsureSuccessStatusCode();
+                //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
+                List<AdwordConfig> lstAdword = response.Content.ReadAsAsync<List<AdwordConfig>>().Result;
+                dtGridAdwordConfig.DataSource = lstAdword;// _googleAdwordService.GetAdwordConfigs();
+
+            }
+
         }
 
         private void dtGridAdwordConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
