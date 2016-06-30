@@ -1,6 +1,4 @@
-﻿
-
-using SEOAutomation.Base.Service.GoogleAdword;
+﻿using SEOAutomation.Base.Service.GoogleAdword;
 using SEOAutomation.Base.Models.Common;
 using SEOAutomation.GoogleAdword.Services;
 using System.Web.Http;

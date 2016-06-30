@@ -15,8 +15,8 @@ using SEOAutomation.Base.Service.GoogleAdword;
 using SEOAutomation.Base.Models.Common;
 using SEOAutomation.GoogleAdword.Services;
 using Gecko;
-
-
+using SEOAutomation.Ultilities.Enums;
+using SEOAutomation.Winform.RequestAPI;
 namespace SEOAutomation.Winform
 {
     public partial class BrowerGecko : Form
@@ -36,9 +36,12 @@ namespace SEOAutomation.Winform
         private bool isFindingURL = false;
         private int page = 0;
         string IPPublic = "";
+        private string APIURI = "";
+        private AdwordRequest rqAdword;
         public BrowerGecko()
         {
             InitializeComponent();
+            rqAdword = new AdwordRequest();
             _googleAdwordService = new GoogleAdwordService();
            // Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
             Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
@@ -123,7 +126,7 @@ namespace SEOAutomation.Winform
         private void Brower_Load(object sender, EventArgs e)
         {
             Random random = new Random();
-            lstAdwordConfigs = _googleAdwordService.GetAdwordConfigs().OrderBy(arg => random.Next(int.MaxValue)).ToList();
+            lstAdwordConfigs = rqAdword.GetAdwordConfigs().OrderBy(arg => random.Next(int.MaxValue)).ToList();
             ViewLink();
             //GeckoPreferences.Default["network.proxy.type"] = 1;
             //GeckoPreferences.Default["network.proxy.http"] = "115.146.123.219";
@@ -282,17 +285,18 @@ namespace SEOAutomation.Winform
             
             catch
             {
+                externalip = new System.Net.WebClient().DownloadString("http://checkip.dyndns.org");
                 WriteLog("Donn't get IP");
             }
             return externalip;
         }
         private void WriteLog(string strLog)
         {
-            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"D:\Project\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
         }
         private void WriteLogIP(string strLog)
         {
-            File.AppendAllText(@"E:\Project\SEOAuto\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
+            File.AppendAllText(@"D:\Project\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
         }
         private void button1_Click(object sender, EventArgs e)
         {

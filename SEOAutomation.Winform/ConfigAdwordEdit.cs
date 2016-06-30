@@ -12,17 +12,23 @@ using SEOAutomation.Base.Models.Common;
 using SEOAutomation.GoogleAdword.Services;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using SEOAutomation.Ultilities.Enums;
+using SEOAutomation.Ultilities.Common;
+using SEOAutomation.Winform.RequestAPI;
 namespace SEOAutomation.Winform
 {
     public partial class ConfigAdwordEdit : Form
     {
         private IGoogleAdwordService _googleAdwordService;
         private int Id = 0;
-
+        private string APIURI = "";
+        AdwordRequest rqAPI;
         public ConfigAdwordEdit()
         {
             InitializeComponent();
+            APIURI = Common.getURI("APIURI");
             dtGridAdwordConfig.AutoGenerateColumns = false;
+            rqAPI = new AdwordRequest();
             _googleAdwordService = new GoogleAdwordService();
             //string a=GetIPAddress();
         }
@@ -47,25 +53,13 @@ namespace SEOAutomation.Winform
                     obAdwordConfig.TextLink = txtTextLink.Text;
                     obAdwordConfig.IsAdsen = chkAdsen.Checked;
 
+                if(rqAPI.Add_Adword(obAdwordConfig))
+                        MessageBox.Show("Cập nhật thành công.");
+                else
+                        MessageBox.Show("Cập nhật không thành công.");
 
-                    using (var client = new HttpClient())
-                    {
-                        client.BaseAddress = new Uri("http://localhost:58199/");
-                        client.DefaultRequestHeaders.Accept.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    bindData();
 
-                        // New code:
-                        var response = client.PostAsJsonAsync("api/GoogleAdword/Add_addWord", obAdwordConfig).Result;
-
-                        if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            MessageBox.Show("Cập nhật thành công.");
-                        }
-
-
-                        //_googleAdwordService.Add(obAdwordConfig);
-                        bindData();
-                    }
                 }
             }
             catch (Exception ex)
@@ -75,29 +69,6 @@ namespace SEOAutomation.Winform
             }
 
 
-        }
-        private bool IsExisURL(string URL,int Id)
-        {
-            bool isExis = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:58199/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // New code:
-
-                var response = client.GetAsync("api/GoogleAdword/IsExisURL?URL="+URL+"&Id="+Id+"").Result;
-                //client.PostAsJsonAsync
-                if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
-                    isExis = response.Content.ReadAsAsync<bool>().Result;
-                }
-                
-
-            }
-            return isExis;
         }
         private bool ValidInput()
         {
@@ -131,7 +102,7 @@ namespace SEOAutomation.Winform
                 MessageBox.Show("Bạn chưa nhập số lượng link cần click.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return false;
             }
-            if (IsExisURL(txtURL.Text,Id))
+            if (rqAPI.IsExisURL(txtURL.Text,Id))
             {
                 MessageBox.Show("URL đã tồn tại.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return false;
@@ -151,26 +122,7 @@ namespace SEOAutomation.Winform
 
         private void bindData()
         {
-            // dtGridAdwordConfig.DataSource = _googleAdwordService.GetAdwordConfigs();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:58199/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // New code:
-
-                var response = client.GetAsync("api/GoogleAdword/get").Result;
-                //client.PostAsJsonAsync
-                if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
-                //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
-                {
-                    List<AdwordConfig> lstAdword = response.Content.ReadAsAsync<List<AdwordConfig>>().Result;
-                    dtGridAdwordConfig.DataSource = lstAdword;// _googleAdwordService.GetAdwordConfigs();
-                }
-
-            }
-
+            dtGridAdwordConfig.DataSource= rqAPI.GetAdwordConfigs();
         }
 
         private void dtGridAdwordConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
