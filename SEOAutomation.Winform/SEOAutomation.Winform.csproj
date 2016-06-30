@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestAPI\AdwordRequest.cs" />
     <EmbeddedResource Include="BrowerGecko.resx">
       <DependentUpon>BrowerGecko.cs</DependentUpon>
     </EmbeddedResource>
