@@ -38,12 +38,14 @@ namespace SEOAutomation.Winform
         string IPPublic = "";
         private string APIURI = "";
         private AdwordRequest rqAdword;
+        string excutePath = "";
         public BrowerGecko()
         {
             InitializeComponent();
             rqAdword = new AdwordRequest();
             _googleAdwordService = new GoogleAdwordService();
-            Xpcom.Initialize(@"E:\Sample\Gecko33\xulrunner-sdk\bin");
+             excutePath= Path.GetDirectoryName(Application.ExecutablePath);
+            Xpcom.Initialize(excutePath + @"\Gecko");
             //Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
             historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
@@ -285,18 +287,18 @@ namespace SEOAutomation.Winform
             
             catch
             {
-                externalip = new System.Net.WebClient().DownloadString("http://checkip.dyndns.org");
+                //externalip = new System.Net.WebClient().DownloadString("http://checkip.dyndns.org");
                 WriteLog("Donn't get IP");
             }
             return externalip;
         }
         private void WriteLog(string strLog)
         {
-            File.AppendAllText(@"D:\Project\SEOAutomation\Log\LogViewLink.txt", strLog + Environment.NewLine);
+            File.AppendAllText(excutePath+@"\Log\LogViewLink.txt", strLog + Environment.NewLine);
         }
         private void WriteLogIP(string strLog)
         {
-            File.AppendAllText(@"D:\Project\SEOAutomation\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
+            File.AppendAllText(excutePath+@"\Log\ResetIPFlag.txt", strLog + Environment.NewLine);
         }
         private void button1_Click(object sender, EventArgs e)
         {
