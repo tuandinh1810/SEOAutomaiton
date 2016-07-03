@@ -180,18 +180,48 @@ namespace SEOAutomation.Winform
                 clickLinkTimer.Enabled = false;
                 clickLinkTimer.Dispose();
                 //MessageBox.Show("Done Number URL : " + numberURL);
-                WriteLogIP("NewIP");
+                WriteLogIP("ADSEN");
 
 
                 //click adsen
 
-                //clickAdsenTimer = new Timer();
-                //clickAdsenTimer.Interval = (1 * 20 * 1000);
-                //clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
-                //clickAdsenTimer.Start();
+                clickAdsenTimer = new Timer();
+                clickAdsenTimer.Interval = (1 * 20 * 1000);
+                clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
+                clickAdsenTimer.Start();
 
                 ////Loop khi reset IP
 
+                //System.Threading.Thread.Sleep(3 * 60000);
+                //IPPublic = getPublicIP();
+                //WriteLog(IPPublic.ToString());
+                //if (!IPPublic.Equals(IPPublic.ToString()))
+                //{
+
+                //    MessageBox.Show(IPPublic);
+
+                //}
+
+                //numberURL = 0;
+                //nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
+                //historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
+                //historyMan.RemoveAllPages();
+                ////clear cache
+
+                //nsICookieManager CookieMan;
+                //CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
+                //CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
+                //CookieMan.RemoveAll();
+                //loop_ViewLinkWithIP();
+
+            }
+        }
+        private void clickAdsenTimer_Tick(object sender, EventArgs e)
+        {
+            //Loop khi reset IP
+            string[] arrLog = File.ReadAllLines(excutePath + @"\Log\ResetIPFlag.txt");
+            if (arrLog.Length > 0 && arrLog[arrLog.Length - 1].Equals("NewIP"))
+            {
                 System.Threading.Thread.Sleep(3 * 60000);
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
@@ -213,38 +243,8 @@ namespace SEOAutomation.Winform
                 CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
                 CookieMan.RemoveAll();
                 loop_ViewLinkWithIP();
-
             }
         }
-        //private void clickAdsenTimer_Tick(object sender, EventArgs e)
-        //{
-        //    //Loop khi reset IP
-        //    string[] arrLog = File.ReadAllLines(excutePath + @"\Log\ResetIPFlag.txt");
-        //    if (arrLog.Length > 0 && arrLog[arrLog.Length-1].Equals("NewIP"))
-        //    {
-        //        System.Threading.Thread.Sleep(3 * 60000);
-        //        IPPublic = getPublicIP();
-        //        WriteLog(IPPublic.ToString());
-        //        if (!IPPublic.Equals(IPPublic.ToString()))
-        //        {
-
-        //            MessageBox.Show(IPPublic);
-
-        //        }
-
-        //        numberURL = 0;
-        //        nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
-        //        historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
-        //        historyMan.RemoveAllPages();
-        //        //clear cache
-
-        //        nsICookieManager CookieMan;
-        //        CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
-        //        CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
-        //        CookieMan.RemoveAll();
-        //        loop_ViewLinkWithIP();
-        //    }
-        //}
         private void geckoBrower_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
 
