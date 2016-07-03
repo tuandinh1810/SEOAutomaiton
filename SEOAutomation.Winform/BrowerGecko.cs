@@ -24,6 +24,7 @@ namespace SEOAutomation.Winform
         private IGoogleAdwordService _googleAdwordService;
         public bool isClick = false;
         Timer clickLinkTimer = new Timer();
+        Timer clickAdsenTimer = new Timer();
         int intInterval = 20;
         int clickLimit = 0;
         List<AdwordConfig> lstAdwordConfigs = null;
@@ -42,9 +43,11 @@ namespace SEOAutomation.Winform
         public BrowerGecko()
         {
             InitializeComponent();
+          
             rqAdword = new AdwordRequest();
             _googleAdwordService = new GoogleAdwordService();
              excutePath= Path.GetDirectoryName(Application.ExecutablePath);
+            
             Xpcom.Initialize(excutePath + @"\Gecko");
             //Xpcom.Initialize(@"F:\Sample\Gecko33\xulrunner-sdk\bin");
             nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
@@ -128,7 +131,7 @@ namespace SEOAutomation.Winform
         private void Brower_Load(object sender, EventArgs e)
         {
             Random random = new Random();
-            lstAdwordConfigs = rqAdword.GetAdwordConfigs().OrderBy(arg => random.Next(int.MaxValue)).ToList();
+            lstAdwordConfigs = rqAdword.GetAdwordConfigs().OrderByDescending(o=>o.ID).ToList();
             ViewLink();
             //GeckoPreferences.Default["network.proxy.type"] = 1;
             //GeckoPreferences.Default["network.proxy.http"] = "115.146.123.219";
@@ -180,16 +183,23 @@ namespace SEOAutomation.Winform
                 WriteLogIP("NewIP");
 
 
-                //Loop khi reset IP
+                //click adsen
 
-                System.Threading.Thread.Sleep(3*60000);
+                //clickAdsenTimer = new Timer();
+                //clickAdsenTimer.Interval = (1 * 20 * 1000);
+                //clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
+                //clickAdsenTimer.Start();
+
+                ////Loop khi reset IP
+
+                System.Threading.Thread.Sleep(3 * 60000);
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
                 if (!IPPublic.Equals(IPPublic.ToString()))
                 {
-                   
+
                     MessageBox.Show(IPPublic);
-                   
+
                 }
 
                 numberURL = 0;
@@ -206,7 +216,35 @@ namespace SEOAutomation.Winform
 
             }
         }
+        //private void clickAdsenTimer_Tick(object sender, EventArgs e)
+        //{
+        //    //Loop khi reset IP
+        //    string[] arrLog = File.ReadAllLines(excutePath + @"\Log\ResetIPFlag.txt");
+        //    if (arrLog.Length > 0 && arrLog[arrLog.Length-1].Equals("NewIP"))
+        //    {
+        //        System.Threading.Thread.Sleep(3 * 60000);
+        //        IPPublic = getPublicIP();
+        //        WriteLog(IPPublic.ToString());
+        //        if (!IPPublic.Equals(IPPublic.ToString()))
+        //        {
 
+        //            MessageBox.Show(IPPublic);
+
+        //        }
+
+        //        numberURL = 0;
+        //        nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
+        //        historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
+        //        historyMan.RemoveAllPages();
+        //        //clear cache
+
+        //        nsICookieManager CookieMan;
+        //        CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
+        //        CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
+        //        CookieMan.RemoveAll();
+        //        loop_ViewLinkWithIP();
+        //    }
+        //}
         private void geckoBrower_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
 
