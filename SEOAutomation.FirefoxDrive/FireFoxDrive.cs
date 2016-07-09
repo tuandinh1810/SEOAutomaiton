@@ -141,17 +141,17 @@ namespace SEOAutomation.FirefoxDrive
                 clickLinkTimer.Enabled = false;
                 clickLinkTimer.Dispose();
                 //MessageBox.Show("Done Number URL : " + numberURL);
-                //WriteLogIP("NewIP");
-                WriteLogIP("ADSEN");
+                WriteLogIP("NewIP");
+                //WriteLogIP("ADSEN");
 
 
 
                 //click adsen
 
-                clickAdsenTimer = new Timer();
-                clickAdsenTimer.Interval = (1 * 20 * 1000);
-                clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
-                clickAdsenTimer.Start();
+                //clickAdsenTimer = new Timer();
+                //clickAdsenTimer.Interval = (1 * 20 * 1000);
+                //clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
+                //clickAdsenTimer.Start();
 
                 ////Loop khi reset IP
 
