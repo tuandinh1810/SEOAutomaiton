@@ -264,7 +264,7 @@ namespace SEOAutomation.FirefoxDrive
                                 && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1 && strHref.IndexOf("duongquoccuongbds.com") == -1 && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
                                 && strHref.IndexOf("http://sieuthinhadathaiphong.com/rss.aspx")==-1)
                             {
-                                WriteLog(strHref+DateTime.Now.ToString("dd/MM/yyyy"));
+                                WriteLog(strHref+": "+DateTime.Now.ToString());
 
                                 elements.ElementAt(randomClick).Click();
 
