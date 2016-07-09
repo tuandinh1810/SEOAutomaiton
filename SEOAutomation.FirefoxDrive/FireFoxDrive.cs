@@ -44,7 +44,7 @@ namespace SEOAutomation.FirefoxDrive
         {
             InitializeComponent();
             firefoxDrive = new FirefoxDriver();
-
+            firefoxDrive.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromMinutes(5));
             rqAdword = new AdwordRequest();
             excutePath = Path.GetDirectoryName(Application.ExecutablePath);
             IPPublic = getPublicIP();
@@ -103,6 +103,8 @@ namespace SEOAutomation.FirefoxDrive
         }
         private void ViewLink()
         {
+            WriteLog("View Link function: " + DateTime.Now.ToString());
+
             if (numberURL <= lstAdwordConfigs.Count - 1)
             {
 
@@ -194,40 +196,51 @@ namespace SEOAutomation.FirefoxDrive
         }
         private void ViewLinkDetail()
         {
-
-            IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//h3/a"));
-            
-            foreach (var item in elements)
+            try
             {
-                //Doanh nghiệp xanh - Diễn đàn cộng đồng doanh nghiệp Việt Nam
-                if (StripHTML(item.Text).Equals(objAdwordConfig.TextLink))
+                IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//h3/a"));
+
+                foreach (var item in elements)
                 {
-                    isFindingURL = true;
-                    System.Threading.Thread.Sleep(20000);
-                    WriteLog(StripHTML(item.Text));
-                    item.Click();
+                    //Doanh nghiệp xanh - Diễn đàn cộng đồng doanh nghiệp Việt Nam
+                    if (StripHTML(item.Text).Equals(objAdwordConfig.TextLink))
+                    {
+                        isFindingURL = true;
+                        System.Threading.Thread.Sleep(20000);
+                        WriteLog(StripHTML(item.Text));
+                        item.Click();
 
-                    //Tim thay URL can view thi goi timer de click tren trang 
-                    clickLinkTimer = new Timer();
-                    clickLinkTimer.Interval = (1 * 20 * 1000);
-                    clickLinkTimer.Tick += new EventHandler(clickLinkTimer_Tick);
-                    clickLinkTimer.Start();
-                    break;
+                        //Tim thay URL can view thi goi timer de click tren trang 
+                        clickLinkTimer = new Timer();
+                        clickLinkTimer.Interval = (1 * 20 * 1000);
+                        clickLinkTimer.Tick += new EventHandler(clickLinkTimer_Tick);
+                        clickLinkTimer.Start();
+                        break;
+                    }
+
                 }
-
+                if (elements.Count > 0 && !isFindingURL)
+                {
+                    page = page + 1;
+                    string googleUri = firefoxDrive.Url.ToString();
+                    int paraStart = 10 * page;
+                    //System.Threading.Thread.Sleep(10000);
+                    firefoxDrive.Navigate().GoToUrl(googleUri + "&start=" + paraStart.ToString());
+                }
             }
-            if (elements.Count > 0 && !isFindingURL)
+            catch
             {
-                page = page + 1;
-                string googleUri = firefoxDrive.Url.ToString();
-                int paraStart = 10 * page;
-                //System.Threading.Thread.Sleep(10000);
-                firefoxDrive.Navigate().GoToUrl(googleUri + "&start=" + paraStart.ToString());
+                WriteLog("Load google erro");
+                System.Threading.Thread.Sleep(60000);
+                ViewLinkDetail();
+
             }
         }
         private void clickLinkTimer_Tick(object sender, EventArgs e)
         {
             //clickLinkTimer.Stop();
+            WriteLog("click link timer method : " + DateTime.Now.ToString());
+
             Timer timer = (Timer)sender;
             timer.Stop();
 
@@ -241,7 +254,7 @@ namespace SEOAutomation.FirefoxDrive
 
                     // GeckoElementCollection cv = geckoBrower.Document.GetElementsByTagName("a");
 
-                    IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//a"));
+                    IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//a")).Where(o=>o.Text!="").ToList();
 
 
                     string[] arrInterval = objAdwordConfig.IntervalClick.Split(',');
@@ -261,7 +274,7 @@ namespace SEOAutomation.FirefoxDrive
                         {
                             string strHref = elements.ElementAt(randomClick).GetAttribute("href");
                             if (strHref.IndexOf("javascript") == -1 && strHref.IndexOf("facebook.com") == -1 && strHref.IndexOf("twitter") == -1 && strHref.IndexOf("maylammatvn.com") == -1
-                                && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1 && strHref.IndexOf("duongquoccuongbds.com") == -1 && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
+                                && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1  && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
                                 && strHref.IndexOf("http://sieuthinhadathaiphong.com/rss.aspx")==-1)
                             {
                                 WriteLog(strHref+DateTime.Now.ToString());
