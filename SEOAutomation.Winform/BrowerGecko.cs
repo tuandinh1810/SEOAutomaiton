@@ -190,29 +190,29 @@ namespace SEOAutomation.Winform
                 clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
                 clickAdsenTimer.Start();
 
-                ////Loop khi reset IP
+                //Loop khi reset IP
 
-                //System.Threading.Thread.Sleep(3 * 60000);
-                //IPPublic = getPublicIP();
-                //WriteLog(IPPublic.ToString());
-                //if (!IPPublic.Equals(IPPublic.ToString()))
-                //{
+                System.Threading.Thread.Sleep(3 * 60000);
+                IPPublic = getPublicIP();
+                WriteLog(IPPublic.ToString());
+                if (!IPPublic.Equals(IPPublic.ToString()))
+                {
 
-                //    MessageBox.Show(IPPublic);
+                    MessageBox.Show(IPPublic);
 
-                //}
+                }
 
-                //numberURL = 0;
-                //nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
-                //historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
-                //historyMan.RemoveAllPages();
-                ////clear cache
+                numberURL = 0;
+                nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
+                historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
+                historyMan.RemoveAllPages();
+                //clear cache
 
-                //nsICookieManager CookieMan;
-                //CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
-                //CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
-                //CookieMan.RemoveAll();
-                //loop_ViewLinkWithIP();
+                nsICookieManager CookieMan;
+                CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
+                CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
+                CookieMan.RemoveAll();
+                loop_ViewLinkWithIP();
 
             }
         }

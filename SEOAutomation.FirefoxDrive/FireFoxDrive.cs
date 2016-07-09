@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using SEOAutomation.Base.Models.Common;
-using SEOAutomation.Winform.RequestAPI;
+using SEOAutomation.RequestAPI;
 using System.Web;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
@@ -146,7 +146,6 @@ namespace SEOAutomation.FirefoxDrive
 
 
 
-
                 //click adsen
 
                 clickAdsenTimer = new Timer();
@@ -156,27 +155,19 @@ namespace SEOAutomation.FirefoxDrive
 
                 ////Loop khi reset IP
 
-                //System.Threading.Thread.Sleep(3 * 60000);
-                //IPPublic = getPublicIP();
-                //WriteLog(IPPublic.ToString());
-                //if (!IPPublic.Equals(IPPublic.ToString()))
-                //{
+                System.Threading.Thread.Sleep(3 * 60000);
+                IPPublic = getPublicIP();
+                WriteLog(IPPublic.ToString());
+                if (!IPPublic.Equals(IPPublic.ToString()))
+                {
 
-                //    MessageBox.Show(IPPublic);
+                    MessageBox.Show(IPPublic);
 
-                //}
+                }
 
-                //numberURL = 0;
-                //nsIBrowserHistory historyMan = Xpcom.GetService<nsIBrowserHistory>(Gecko.Contracts.NavHistoryService);
-                //historyMan = Xpcom.QueryInterface<nsIBrowserHistory>(historyMan);
-                //historyMan.RemoveAllPages();
-                ////clear cache
+                numberURL = 0;
 
-                //nsICookieManager CookieMan;
-                //CookieMan = Xpcom.GetService<nsICookieManager>("@mozilla.org/cookiemanager;1");
-                //CookieMan = Xpcom.QueryInterface<nsICookieManager>(CookieMan);
-                //CookieMan.RemoveAll();
-               // loop_ViewLinkWithIP();
+                loop_ViewLinkWithIP();
 
             }
         }

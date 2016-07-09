@@ -4,7 +4,7 @@ using SEOAutomation.Ultilities.Common;
 using SEOAutomation.Base.Models.Common;
 using System.Net.Http;
 using System.Net.Http.Headers;
-namespace SEOAutomation.Winform.RequestAPI
+namespace SEOAutomation.RequestAPI
 {
     public class AdwordRequest
     {
