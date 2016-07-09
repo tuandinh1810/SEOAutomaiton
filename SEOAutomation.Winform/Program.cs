@@ -16,7 +16,7 @@ namespace SEOAutomation.Winform
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ConfigAdwordEdit());
+            Application.Run(new BrowerGecko());
         }
     }
 }

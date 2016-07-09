@@ -180,15 +180,15 @@ namespace SEOAutomation.Winform
                 clickLinkTimer.Enabled = false;
                 clickLinkTimer.Dispose();
                 //MessageBox.Show("Done Number URL : " + numberURL);
-                WriteLogIP("ADSEN");
+                WriteLogIP("NewIP");
 
 
                 //click adsen
 
-                clickAdsenTimer = new Timer();
-                clickAdsenTimer.Interval = (1 * 20 * 1000);
-                clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
-                clickAdsenTimer.Start();
+                //clickAdsenTimer = new Timer();
+                //clickAdsenTimer.Interval = (1 * 20 * 1000);
+                //clickAdsenTimer.Tick += new EventHandler(clickAdsenTimer_Tick);
+                //clickAdsenTimer.Start();
 
                 //Loop khi reset IP
 
