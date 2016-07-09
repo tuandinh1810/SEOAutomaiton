@@ -128,7 +128,7 @@ namespace SEOAutomation.FirefoxDrive
                     string strQuery = HttpUtility.UrlEncode(arrKeyWord[i]);
                     // geckoBrower.Dispose();
                     firefoxDrive.Navigate().GoToUrl(googleURL + strQuery);
-                    System.Threading.Thread.Sleep(5000);
+                    //System.Threading.Thread.Sleep(15000);
                     ViewLinkDetail();
 
 
@@ -264,7 +264,7 @@ namespace SEOAutomation.FirefoxDrive
                                 && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1 && strHref.IndexOf("duongquoccuongbds.com") == -1 && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
                                 && strHref.IndexOf("http://sieuthinhadathaiphong.com/rss.aspx")==-1)
                             {
-                                WriteLog(strHref+DateTime.Now.ToString("dd/MM/yyyy"));
+                                WriteLog(strHref+DateTime.Now.ToString());
 
                                 elements.ElementAt(randomClick).Click();
 
@@ -296,8 +296,11 @@ namespace SEOAutomation.FirefoxDrive
             }
             catch
             {
+                WriteLog("Load error");
                 System.Threading.Thread.Sleep(60000);
                 firefoxDrive.Navigate().GoToUrl(objAdwordConfig.URL);
+                timer.Interval = (1 * 30000 * 1000);
+                timer.Start();
             }
 
         }
