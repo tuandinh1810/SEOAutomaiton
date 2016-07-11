@@ -252,7 +252,7 @@ namespace SEOAutomation.FirefoxDrive
 
                     // GeckoElementCollection cv = geckoBrower.Document.GetElementsByTagName("a");
 
-                    IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//a"));
+                    IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//a")).Where(o=>o.Text!="").ToList();
 
 
                     string[] arrInterval = objAdwordConfig.IntervalClick.Split(',');
@@ -272,7 +272,7 @@ namespace SEOAutomation.FirefoxDrive
                         {
                             string strHref = elements.ElementAt(randomClick).GetAttribute("href");
                             if (strHref.IndexOf("javascript") == -1 && strHref.IndexOf("facebook.com") == -1 && strHref.IndexOf("twitter") == -1 && strHref.IndexOf("maylammatvn.com") == -1
-                                && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1 && strHref.IndexOf("duongquoccuongbds.com") == -1 && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
+                                && strHref.IndexOf("plus.google.com") == -1 && strHref.IndexOf("quatlammatvn") == -1  && strHref.IndexOf("http://diaocthanglong.net/bieumaubds.aspx")==-1
                                 && strHref.IndexOf("http://sieuthinhadathaiphong.com/rss.aspx")==-1)
                             {
                                 WriteLog(strHref+": "+DateTime.Now.ToString());
