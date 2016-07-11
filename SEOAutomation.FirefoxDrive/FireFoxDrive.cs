@@ -226,6 +226,7 @@ namespace SEOAutomation.FirefoxDrive
                     int paraStart = 10 * page;
                     //System.Threading.Thread.Sleep(10000);
                     firefoxDrive.Navigate().GoToUrl(googleUri + "&start=" + paraStart.ToString());
+                    ViewLinkDetail();
                 }
             }
             catch
