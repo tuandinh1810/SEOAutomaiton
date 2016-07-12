@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using SEOAutomation.Ultilities.Enums;
 using SEOAutomation.Ultilities.Common;
 using SEOAutomation.Winform.RequestAPI;
+
 namespace SEOAutomation.Winform
 {
     public partial class ConfigAdwordEdit : Form
@@ -26,8 +27,8 @@ namespace SEOAutomation.Winform
         public ConfigAdwordEdit()
         {
             InitializeComponent();
-            APIURI = Common.getURI("APIURI");
             dtGridAdwordConfig.AutoGenerateColumns = false;
+
             rqAPI = new AdwordRequest();
             _googleAdwordService = new GoogleAdwordService();
             //string a=GetIPAddress();
@@ -206,5 +207,6 @@ namespace SEOAutomation.Winform
             // Otherwise use the REMOTE_ADDR Header
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
+       
     }
 }

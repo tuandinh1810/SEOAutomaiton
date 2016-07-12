@@ -43,6 +43,7 @@ namespace SEOAutomation.FirefoxDrive
         public FireFoxDrive()
         {
             InitializeComponent();
+            this.WindowState= System.Windows.Forms.FormWindowState.Maximized;
             firefoxDrive = new FirefoxDriver();
             firefoxDrive.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromMinutes(5));
             rqAdword = new AdwordRequest();
