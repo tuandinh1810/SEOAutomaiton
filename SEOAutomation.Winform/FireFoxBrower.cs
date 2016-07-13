@@ -68,6 +68,9 @@ namespace SEOAutomation.Winform
             {
                 //externalip = new System.Net.WebClient().DownloadString("http://checkip.dyndns.org");
                 WriteLog("Donn't get IP");
+                richtxtLog.Text = richtxtLog.Text.Insert(0, "Donn't get IP\n");
+
+
             }
             return externalip;
         }
@@ -92,6 +95,7 @@ namespace SEOAutomation.Winform
         private void ViewLink()
         {
             WriteLog("View Link function: " + DateTime.Now.ToString());
+            richtxtLog.Text = richtxtLog.Text.Insert(0, "View Link function: " + DateTime.Now.ToString()+ "\n");
             if (numberURL <= lstAdwordConfigs.Count - 1)
             {
 
@@ -131,6 +135,7 @@ namespace SEOAutomation.Winform
                 clickLinkTimer.Dispose();
                 //MessageBox.Show("Done Number URL : " + numberURL);
                 WriteLogIP("NewIP");
+                richtxtLog.Text = richtxtLog.Text.Insert(0, "NewIP\n");
                 //WriteLogIP("ADSEN");
 
 
@@ -147,6 +152,7 @@ namespace SEOAutomation.Winform
                 System.Threading.Thread.Sleep(3 * 60000);
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
+                richtxtLog.Text = richtxtLog.Text.Insert(0, IPPublic.ToString()+ "\n");
                 if (!IPPublic.Equals(IPPublic.ToString()))
                 {
 
@@ -170,6 +176,7 @@ namespace SEOAutomation.Winform
                 System.Threading.Thread.Sleep(3 * 60000);
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
+                richtxtLog.Text = richtxtLog.Text.Insert(0, IPPublic.ToString()+ "\n");
                 if (!IPPublic.Equals(IPPublic.ToString()))
                 {
 
@@ -196,6 +203,7 @@ namespace SEOAutomation.Winform
                         isFindingURL = true;
 
                         WriteLog(StripHTML(item.Text));
+                        richtxtLog.Text = richtxtLog.Text.Insert(0, StripHTML(item.Text)+ "\n");
                         item.Click();
                         System.Threading.Thread.Sleep(30000);
                         //Tim thay URL can view thi goi timer de click tren trang 
@@ -219,7 +227,8 @@ namespace SEOAutomation.Winform
             }
             catch
             {
-                WriteLog("Load google erro");
+                WriteLog("Load google erro\n");
+                richtxtLog.Text = richtxtLog.Text.Insert(0, "Load google error\n");
                 System.Threading.Thread.Sleep(60000);
                 ViewLinkDetail();
             }
@@ -228,6 +237,7 @@ namespace SEOAutomation.Winform
         {
             //clickLinkTimer.Stop();
             WriteLog("click link timer method : " + DateTime.Now.ToString());
+            richtxtLog.Text = richtxtLog.Text.Insert(0, "click link timer method : " + DateTime.Now.ToString()+ "\n");
             Timer timer = (Timer)sender;
             timer.Stop();
 
@@ -265,7 +275,7 @@ namespace SEOAutomation.Winform
                                 && strHref.IndexOf("http://sieuthinhadathaiphong.com/rss.aspx")==-1)
                             {
                                 WriteLog(strHref+": "+DateTime.Now.ToString());
-
+                                richtxtLog.Text = richtxtLog.Text.Insert(0, strHref + ": " + DateTime.Now.ToString()+ "\n");
                                 elements.ElementAt(randomClick).Click();
 
                                 // MessageBox.Show(countClickOnSite.ToString());
@@ -282,6 +292,7 @@ namespace SEOAutomation.Winform
                         //MessageBox.Show("href : " + geckoBrower.Url.ToString());
                         firefoxDrive.Navigate().GoToUrl(objAdwordConfig.URL);
                         WriteLog("Khong co the a : " + firefoxDrive.Url.ToString());
+                        richtxtLog.Text = richtxtLog.Text.Insert(0, ("Khong co the a : " + firefoxDrive.Url.ToString()+ "\n"));
                     }
                     timer.Interval = (1 * rd.Next(rdFrom, rdTo) * 1000);
                     timer.Start();
@@ -301,6 +312,7 @@ namespace SEOAutomation.Winform
                 timer.Interval = (1 * rd.Next(20 * 1000));
                 timer.Start();
                 WriteLog("Load error");
+                richtxtLog.Text = richtxtLog.Text.Insert(0, "Load error\n");
             }
 
         }
@@ -324,6 +336,13 @@ namespace SEOAutomation.Winform
 
         private void FireFoxBrower_DoubleClick(object sender, EventArgs e)
         {
+            
+        }
+
+        private void richtxtLog_DoubleClick(object sender, EventArgs e)
+        {
+            richtxtLog.Text = "Start View: " + DateTime.Now.ToString() + "...\n";
+            
             if (isViewPage)
             {
                 isViewPage = false;
@@ -335,12 +354,15 @@ namespace SEOAutomation.Winform
 
                 IPPublic = getPublicIP();
                 WriteLog(IPPublic.ToString());
+                richtxtLog.Text = richtxtLog.Text.Insert(0, IPPublic.ToString()+ "\n");
                 WriteLogIP("Activated");
+                richtxtLog.Text = richtxtLog.Text.Insert(0, "Activated\n");
                 Random random = new Random();
                 lstAdwordConfigs = rqAdword.GetAdwordConfigs().OrderByDescending(o => o.ID).ToList();
                 ViewLink();
             }
         }
+
     }
 
 }

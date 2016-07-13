@@ -28,7 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.richtxtLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
+            // 
+            // richtxtLog
+            // 
+            this.richtxtLog.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.richtxtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richtxtLog.Location = new System.Drawing.Point(0, 0);
+            this.richtxtLog.Name = "richtxtLog";
+            this.richtxtLog.ReadOnly = true;
+            this.richtxtLog.Size = new System.Drawing.Size(595, 376);
+            this.richtxtLog.TabIndex = 0;
+            this.richtxtLog.Text = "";
+            this.richtxtLog.DoubleClick += new System.EventHandler(this.richtxtLog_DoubleClick);
             // 
             // FireFoxBrower
             // 
@@ -36,6 +49,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(595, 376);
             this.ControlBox = false;
+            this.Controls.Add(this.richtxtLog);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FireFoxBrower";
@@ -49,6 +63,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.RichTextBox richtxtLog;
     }
 }
 
