@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SEOAutomation.WebAPI.Controllers
 
 {
-    //[RoutePrefix("api/AdWord")]
+    [RoutePrefix("api/GoogleAdword")]
     public class GoogleAdwordController : ApiController
     {
         // GET: GoogleAdword
@@ -19,7 +19,7 @@ namespace SEOAutomation.WebAPI.Controllers
         {
             _googleAdwordService = new GoogleAdwordService();
         }
-        // [Route("Get")]
+        [Route("Get")]
         [HttpGet]
         public IEnumerable<AdwordConfig> Get()
         {
@@ -33,18 +33,19 @@ namespace SEOAutomation.WebAPI.Controllers
         // 
         
 
-        //[Route("ChecExisURL")]
+        [Route("IsExisURL")]
         [HttpGet]
         public bool IsExisURL(string URL, int Id)
         {   
             return _googleAdwordService.isExisURL(URL,Id);
          
         }
-        //[HttpGet]
-        //public bool Delete( int Id)
-        //{
-        //    return _googleAdwordService.Delete(Id);
+        [Route("Delete")]
+        [HttpGet]
+        public bool Delete(int Id)
+        {
+            return _googleAdwordService.Delete(Id);
 
-        //}
+        }
     }
 }
