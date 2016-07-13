@@ -19,7 +19,8 @@ namespace SEOAutomation.WebAPI.Controllers
         {
             _googleAdwordService = new GoogleAdwordService();
         }
-       // [Route("Get")]
+        // [Route("Get")]
+        [HttpGet]
         public IEnumerable<AdwordConfig> Get()
         {
             return _googleAdwordService.GetAdwordConfigs();
@@ -39,5 +40,11 @@ namespace SEOAutomation.WebAPI.Controllers
             return _googleAdwordService.isExisURL(URL,Id);
          
         }
+        //[HttpGet]
+        //public bool Delete( int Id)
+        //{
+        //    return _googleAdwordService.Delete(Id);
+
+        //}
     }
 }

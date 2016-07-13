@@ -207,6 +207,34 @@ namespace SEOAutomation.Winform
             // Otherwise use the REMOTE_ADDR Header
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
-       
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure delete data?", "Detele", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in dtGridAdwordConfig.SelectedRows)
+                    {
+                        //get key
+                        int Id = Convert.ToInt32(row.Cells["AdWordID"].Value);
+                        bool isDeleted=rqAPI.Delete(Id);
+
+
+                    }
+                    MessageBox.Show("Delete sucess");
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Delete error");
+            }
+           
+        }
     }
 }

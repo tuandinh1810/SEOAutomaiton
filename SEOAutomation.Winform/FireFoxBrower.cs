@@ -250,7 +250,6 @@ namespace SEOAutomation.Winform
                 {
 
                     // GeckoElementCollection cv = geckoBrower.Document.GetElementsByTagName("a");
-
                     IReadOnlyCollection<IWebElement> elements = firefoxDrive.FindElements(By.XPath("//a")).Where(o=>o.Text!="").ToList();
 
 

@@ -65,6 +65,20 @@ namespace SEOAutomation.GoogleAdword.Services
             SeoAutomationEntities.SaveChanges();
             return strReturn;
         }
+        public bool Delete(int Id)
+        {
+            try
+            {
+                AdwordConfig adword = SeoAutomationEntities.AdwordConfigs.Where(o => o.ID == Id).FirstOrDefault();
+                SeoAutomationEntities.AdwordConfigs.Remove(adword);
+                SeoAutomationEntities.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool isExisURL(string URL,int Id)
         {
 

@@ -81,6 +81,35 @@ namespace SEOAutomation.Winform.RequestAPI
             }
             return status;
         }
+        public bool Delete(int Id)
+        {
+            try
+            {
+                bool isDelete = false;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(APIURI);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    // New code:
+
+                    var response = client.GetAsync("api/GoogleAdword/Delete?Id=" + Id).Result;
+                    //client.PostAsJsonAsync
+                    if (response.EnsureSuccessStatusCode().StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        //This method is an extension method, defined in System.Net.Http.HttpContentExtensions    
+                        isDelete = response.Content.ReadAsAsync<bool>().Result;
+                    }
+
+
+                }
+                return isDelete;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

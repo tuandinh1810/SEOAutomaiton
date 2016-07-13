@@ -56,6 +56,7 @@
             this.chkBackLink = new System.Windows.Forms.CheckBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.dtGridAdwordConfig = new System.Windows.Forms.DataGridView();
+            this.colDelete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.url = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdWordID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.KeyWord = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +68,7 @@
             this.IsAdsen = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PageLimit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridAdwordConfig)).BeginInit();
@@ -346,6 +348,7 @@
             // 
             this.dtGridAdwordConfig.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridAdwordConfig.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colDelete,
             this.url,
             this.AdWordID,
             this.KeyWord,
@@ -361,6 +364,14 @@
             this.dtGridAdwordConfig.Size = new System.Drawing.Size(1056, 150);
             this.dtGridAdwordConfig.TabIndex = 20;
             this.dtGridAdwordConfig.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridAdwordConfig_CellDoubleClick);
+            // 
+            // colDelete
+            // 
+            this.colDelete.HeaderText = "";
+            this.colDelete.Name = "colDelete";
+            this.colDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colDelete.Width = 40;
             // 
             // url
             // 
@@ -443,12 +454,23 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(28, 384);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 22;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // ConfigAdwordEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1113, 591);
             this.ControlBox = false;
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.dtGridAdwordConfig);
             this.Controls.Add(this.btnCancel);
@@ -504,6 +526,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTextLink;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colDelete;
         private System.Windows.Forms.DataGridViewTextBoxColumn url;
         private System.Windows.Forms.DataGridViewTextBoxColumn AdWordID;
         private System.Windows.Forms.DataGridViewTextBoxColumn KeyWord;

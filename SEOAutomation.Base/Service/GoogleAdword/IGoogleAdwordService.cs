@@ -16,7 +16,7 @@ namespace SEOAutomation.Base.Service.GoogleAdword
 
         bool isExisURL(string URL,int Id);
         string Add_Adword(AdwordConfig objAdwordConfig);
-
+        bool Delete(int Id);
 
     }
 }
