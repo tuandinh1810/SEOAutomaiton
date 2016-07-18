@@ -224,6 +224,7 @@ namespace SEOAutomation.Winform
 
                     }
                     MessageBox.Show("Delete sucess");
+                    bindData();
                 }
                 else if (dialogResult == DialogResult.No)
                 {
